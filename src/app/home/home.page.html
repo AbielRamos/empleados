@@ -1,20 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Logo de la tienda</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content class="ion-padding">
+  <!-- Lista de Pedidos en el Historial -->
+  <ion-list>
+    <ion-card *ngFor="let pedido of pedidos; let i = index" (click)="verDetallesPedido(pedido)">
+      <ion-card-header>
+        <ion-icon name="time-outline" slot="start"></ion-icon>
+        <ion-card-title>
+          Pedido #{{ i + 1 }} - Fecha: {{ pedido.fecha }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h3>Productos:</h3>
+        <ion-list>
+          <!-- Lista de Productos del Pedido -->
+          <ion-item *ngFor="let producto of pedido.productos">
+            <ion-label>
+              {{ producto.nombre }}  
+              <br />
+              Cantidad: {{ producto.cantidad }}  
+              <br />
+              Precio: {{ producto.precio | currency }}
+            </ion-label>
+            <ion-img 
+              [src]="producto.image || 'assets/images/default-product.jpg'" 
+              alt="{{ producto.nombre }}" 
+              style="width: 50px; height: auto; margin-left: 10px;">
+            </ion-img>
+          </ion-item>
+        </ion-list>
+        <p><strong>Total:</strong> {{ pedido.total | currency }}</p>
+        <!-- Mostrar folio si existe -->
+        <p *ngIf="pedido.folio"><strong>Folio:</strong> {{ pedido.folio }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>
+
+
+
+
+
