@@ -7,7 +7,6 @@ import { NotificationService } from '../services/notification.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
   pedidos: any[] = [];
 
   constructor(private notificationService: NotificationService) {}
